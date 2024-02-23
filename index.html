@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Data Rendering</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row" id="dataGrid">
+    <!-- JSON data will be populated here -->
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $.ajax({
+      url: 'https://raw.githubusercontent.com/tofighi/dataset/main/big-data/web/car.json', // URL to the JSON file
+      dataType: 'json',
+      success: function(data) {
+        renderData(data);
+      }
+    });
+
+    function renderData(data) {
+      var grid = $('#dataGrid');
+      var card = '<div class="col-md-6">' +
+                    '<div class="card">' +
+                      '<img src="' + data.imageURL + '" class="card-img-top" alt="' + data.name + '">' +
+                      '<div class="card-body">' +
+                        '<h5 class="card-title">' + data.name + '</h5>' +
+                        '<p class="card-text">Year: ' + data.year + '</p>' +
+                        '<p class="card-text">Engine Type: ' + data.engine.type + '</p>' +
+                        '<p class="card-text">Engine Size: ' + data.engine.size + '</p>' +
+                        '<p class="card-text">Engine Configuration: ' + data.engine.configuration + '</p>' +
+                        '<p class="card-text">Front Brakes: ' + data.brakes.front + '</p>' +
+                        '<p class="card-text">Back Brakes: ' + data.brakes.back + '</p>' +
+                      '</div>' +
+                    '</div>' +
+                  '</div>';
+      grid.append(card);
+    }
+  });
+</script>
+
+</body>
+</html>
